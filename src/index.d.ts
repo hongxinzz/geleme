@@ -3,7 +3,7 @@
  * @LastEditors: xinghe
  * @Date: 2020-10-11 16:19:52
  * @FilePath: /geleme/src/index.d.ts
- * @LastEditTime: 2020-10-11 16:23:04
+ * @LastEditTime: 2020-10-11 21:02:56
  * @不想有bug xinghe@gaoding.com
  */
 interface StockInfo {
@@ -13,4 +13,6 @@ interface StockInfo {
     diffRate: string
     code: string
     diffMoney: string
+    diff_rate?: string
+    diff_money?: string
 }

@@ -3,7 +3,7 @@
  * @LastEditors: xinghe
  * @Date: 2020-10-11 10:56:30
  * @FilePath: /geleme/src/tree/Provider.ts
- * @LastEditTime: 2020-10-11 20:25:07
+ * @LastEditTime: 2020-10-11 21:27:59
  * @不想有bug xinghe@gaoding.com
  */
 import * as vscode from "vscode";
@@ -12,6 +12,7 @@ import * as path from "path";
 import Items from "./TreeItem";
 import {  getMore } from "../utils/api";
 import { globalConfig } from "../config";
+import { rejects } from "assert";
 
 export class Provider implements vscode.TreeDataProvider<StockInfo> {
     private _onDidChangeTreeData: vscode.EventEmitter<StockInfo | null> = new vscode.EventEmitter<StockInfo | null>();
@@ -34,7 +35,8 @@ export class Provider implements vscode.TreeDataProvider<StockInfo> {
         let my = vscode.workspace.getConfiguration().get("geleme.my", []);
 
         const data:any = await getMore({
-            stocks: my.length ? my + "" : [...globalConfig.defaultStock] + "",
+            // 过滤重复
+            stocks: my.length ? Array.from(new Set(my)) + "" : [...globalConfig.defaultStock] + "",
         });
         this.allStockList = this.formatStockData(data.list);
         return this.allStockList;
@@ -47,13 +49,13 @@ export class Provider implements vscode.TreeDataProvider<StockInfo> {
         setTimeout(() => {
             this._onDidChangeTreeData.fire(null);
         }, 200);
+        vscode.window.showInformationMessage('割了么提醒您：操作成功！');
     }
 
     /**
      * 添加股票
      */
     async addItem() {
-        const arr: Array<any> = [];
         const res = await vscode.window.showInputBox({
             placeHolder: "请输入6位数的股票代码！",
             validateInput: (val: string) => {
@@ -61,11 +63,20 @@ export class Provider implements vscode.TreeDataProvider<StockInfo> {
                 return !reg.test(val) ? "股票代码输入有误" : null;
             },
         });
+        if(!res){return;};
+        // 是的话再看下是不是有重复的
+        if(res){
+            const codeList:string[] = vscode.workspace.getConfiguration().get('geleme.my',[]);
+            if(codeList.includes(res)){
+                vscode.window.showErrorMessage(`割了么提醒您：${res}已存在！`);
+                return;
+            }
+        }
         const data:any = await getMore({ stocks: res });
         // 过滤重复的股票过滤
         const formatData = []
-            .concat(data.list, this.allStockList as any)
-            .filter((v:any) => !arr.includes(v.code));
+            .concat(data.list, this.allStockList as any);
+
         this.allStockList = this.formatStockData(formatData);
         this.update();
     }
@@ -83,7 +94,7 @@ export class Provider implements vscode.TreeDataProvider<StockInfo> {
      * @param data
      */
     formatStockData(data: Array<any>): StockInfo[] {
-        const res = data.map((v: any) => {
+        const res = data.map((v: StockInfo) => {
             return {
                 code: v.code,
                 name: v.name,
@@ -93,7 +104,7 @@ export class Provider implements vscode.TreeDataProvider<StockInfo> {
                 diffMoney: v.diff_money,
             };
         });
-        return res;
+        return res as StockInfo[];
     }
     /**
      * 更新vscode的设置json

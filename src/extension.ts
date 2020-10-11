@@ -3,7 +3,7 @@
  * @LastEditors: xinghe
  * @Date: 2020-10-11 09:57:03
  * @FilePath: /geleme/src/extension.ts
- * @LastEditTime: 2020-10-11 19:16:28
+ * @LastEditTime: 2020-10-11 21:24:32
  * @不想有bug xinghe@gaoding.com
  */
 
@@ -30,6 +30,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     //时间轮询 默认为2
     let interval = vscode.workspace.getConfiguration().get("geleme.interval", 2);
+    // 默认2s
     if (interval < 2) {
         interval = 2;
     }
