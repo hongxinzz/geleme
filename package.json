@@ -2,7 +2,7 @@
 	"name": "geleme",
 	"displayName": "您被割了么",
 	"description": "工作累了,就看看跌的股票,就会更努力工作",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"publisher": "zhuohongxin",
 	"icon": "icon.png",
 	"engines": {
