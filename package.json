@@ -1,0 +1,144 @@
+{
+	"name": "geleme",
+	"displayName": "您被割了么",
+	"description": "工作累了,就看看跌的股票,就会更努力工作",
+	"version": "0.0.2",
+	"publisher": "zhuohongxin",
+	"icon": "icon.png",
+	"engines": {
+		"vscode": "^1.50.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onView:geleme",
+		"onCommand:geleme"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "geleme",
+				"title": "您被割了么"
+			},
+			{
+				"command": "geleme.refresh",
+				"title": "刷新",
+				"icon": {
+				  "light": "./image/light/refresh.svg",
+				  "dark": "./image/dark/refresh.svg"
+				}
+			  },
+			  {
+				"command": "geleme.add",
+				"title": "Add",
+				"icon": {
+					"light": "./image/light/add.svg",
+					"dark": "./image/dark/add.svg"
+				  }
+			  },
+			  {
+				"command": "geleme.delete",
+				"title": "Delete"
+			  }
+		],
+		"menus": {
+			"view/title": [
+			  {
+				"command": "geleme.refresh",
+				"when": "view == geleme",
+				"group": "navigation"
+			  },
+			  {
+				"command": "geleme.add",
+				"when": "view == geleme",
+				"group": "navigation"
+			  }
+			],
+			"view/item/context": [
+				{
+				  "command": "geleme.delete",
+				  "when": "view == geleme",
+				  "group": "inline"
+				}
+			  ]
+		  },
+		  "viewsWelcome": [
+			{
+			  "view": "geleme",
+			  "contents": "emmmmmm，初始化挂了！请手动设置下！\n[添加股票](command:geleme.add)"
+			}
+		  ],
+		"configuration": {
+			"type": "object",
+			"title": "摸鱼看股票",
+			"properties": {
+				"geleme.name": {
+					"type": "string",
+					"default": "设置您的名字",
+					"description": "你的名字"
+				},
+				"geleme.showWelcome": {
+					"type": "boolean",
+					"default": true,
+					"description": "是否在每次启动时显示欢迎页面！"
+				},
+				"geleme.my": {
+					"type": "array",
+					"default": [300750,601012,600999,600519],
+					"description": "添加关注的股票！"
+				}
+			}
+		},
+		"keybindings": [
+			{
+				"command": "geleme",
+				"key": "ctrl+f10",
+				"mac": "cmd+f10",
+				"when": "editorTextFocus"
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "geleme",
+					"title": "今天想问问你：您被割了么？",
+					"icon": "./icon.svg"
+				}
+			]
+		},
+		"views": {
+			"geleme": [
+				{
+					"name": "",
+					"id": "geleme"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "yarn run compile",
+		"compile": "tsc -p ./",
+		"lint": "eslint src --ext ts",
+		"watch": "tsc -watch -p ./",
+		"pretest": "yarn run compile && yarn run lint",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.0",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.50.0",
+		"@typescript-eslint/eslint-plugin": "^4.1.1",
+		"@typescript-eslint/parser": "^4.1.1",
+		"eslint": "^7.9.0",
+		"glob": "^7.1.6",
+		"mocha": "^8.1.3",
+		"typescript": "^4.0.2",
+		"vscode-test": "^1.4.0"
+	},
+	"dependencies": {
+		"axios": "^0.19.0"
+	}
+}
