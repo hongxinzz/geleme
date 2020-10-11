@@ -3,7 +3,7 @@
  * @LastEditors: xinghe
  * @Date: 2020-10-11 09:57:03
  * @FilePath: /geleme/README.md
- * @LastEditTime: 2020-10-11 20:20:33
+ * @LastEditTime: 2020-10-11 20:31:38
  * @不想有bug xinghe@gaoding.com
 -->
 # 割了么 (鼓励师)
@@ -28,7 +28,7 @@
 -  股票刷新
 -  股票实施刷新(接口原因暂不开放)
 
- ## 未完成的功能
+## 未完成的功能
 
 -  设置引导页
 
