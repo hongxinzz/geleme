@@ -3,7 +3,7 @@
  * @LastEditors: xinghe
  * @Date: 2020-10-11 09:57:03
  * @FilePath: /geleme/README.md
- * @LastEditTime: 2020-10-11 20:31:38
+ * @LastEditTime: 2020-10-20 14:24:19
  * @不想有bug xinghe@gaoding.com
 -->
 # 割了么 (鼓励师)
@@ -11,6 +11,10 @@
 - 在上班你可以摸鱼看自己关心的股票
 - 然后看完跌完的股票又会努力去上班
 
+
+## 安装
+
+在vscode 中搜索  `geleme`
  ```js
  //settings.json
 "geleme.my": [
